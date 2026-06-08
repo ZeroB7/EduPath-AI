@@ -396,6 +396,200 @@ Yang belum dikerjakan:
 5. Fokus berikutnya adalah membuat demo aplikasi sederhana.
 
 ---
+## Rencana Alur Aplikasi Demo
+
+Setelah tahap dataset dan modeling selesai, langkah berikutnya adalah membuat demo aplikasi sederhana.
+
+Untuk MVP, aplikasi tidak langsung dibuat besar. Kita mulai dari alur kecil terlebih dahulu agar mudah dipahami dan bisa didemokan.
+
+Alur demo yang akan dibuat:
+
+```text
+Pilih Course
+↓
+Baca Materi
+↓
+Kerjakan Quiz
+↓
+Sistem menghitung hasil quiz
+↓
+Model memprediksi perlu remedial atau tidak
+↓
+Aplikasi menampilkan rekomendasi belajar
+```
+
+---
+
+### Course Demo Awal
+
+Untuk demo pertama, kita cukup memakai satu course.
+
+```text
+Course:
+Programming Basic
+
+Topik:
+Loops
+```
+
+Isi course:
+
+```text
+- Materi singkat tentang Loops
+- Contoh kode sederhana
+- Link video pembelajaran
+- Quiz 5 soal
+- Hasil prediksi remedial
+- Rekomendasi belajar
+```
+
+Tujuannya agar alur aplikasi selesai terlebih dahulu sebelum menambah course lain.
+
+---
+
+### Data yang Perlu Disiapkan
+
+Agar aplikasi bisa berjalan, tim perlu menyiapkan data sederhana seperti:
+
+```text
+course
+topic
+materi
+video pembelajaran
+quiz
+pilihan jawaban
+jawaban benar
+pembahasan soal
+materi remedial
+topik berikutnya
+```
+
+Untuk tahap awal, data ini bisa disimpan di file JSON:
+
+```text
+data/courses.json
+```
+
+Nanti jika project berkembang, data ini bisa dipindahkan ke database.
+
+---
+
+### Peran Model Machine Learning
+
+Model tidak membuat materi secara otomatis.
+
+Model hanya membantu menentukan:
+
+```text
+Apakah pengguna perlu remedial atau tidak?
+```
+
+Input model berasal dari hasil quiz, seperti:
+
+```text
+subject
+topic
+difficulty_level
+total_questions
+correct_answers
+wrong_answers
+topic_accuracy
+attempt_count
+study_duration_minutes
+pre_test_score
+```
+
+Output model:
+
+```text
+0 = Tidak Perlu Remedial
+1 = Perlu Remedial
+```
+
+---
+
+### Alur Jika Pengguna Perlu Remedial
+
+Jika hasil model adalah:
+
+```text
+needs_remedial = 1
+```
+
+maka aplikasi menampilkan rekomendasi seperti:
+
+```text
+Status:
+Perlu Remedial
+
+Rekomendasi:
+- Pelajari ulang materi pada topik tersebut
+- Tonton video penguatan
+- Baca pembahasan soal yang salah
+- Kerjakan quiz remedial
+```
+
+---
+
+### Alur Jika Pengguna Tidak Perlu Remedial
+
+Jika hasil model adalah:
+
+```text
+needs_remedial = 0
+```
+
+maka aplikasi menampilkan:
+
+```text
+Status:
+Tidak Perlu Remedial
+
+Rekomendasi:
+- Lanjut ke topik berikutnya
+```
+
+---
+
+### File yang Akan Ditambahkan
+
+Untuk membuat demo aplikasi, file yang akan ditambahkan adalah:
+
+```text
+app.py
+data/courses.json
+```
+
+Penjelasan:
+
+```text
+app.py
+```
+
+Digunakan untuk membuat tampilan aplikasi menggunakan Streamlit.
+
+```text
+data/courses.json
+```
+
+Digunakan untuk menyimpan course, materi, quiz, video, pembahasan, dan rekomendasi remedial.
+
+---
+
+### Target Demo MVP
+
+Target demo MVP adalah:
+
+```text
+User bisa memilih course
+User bisa membaca materi
+User bisa mengerjakan quiz
+Sistem menghitung topic_accuracy
+Model memprediksi kebutuhan remedial
+Aplikasi menampilkan rekomendasi belajar
+```
+
+Jika alur ini sudah berjalan, maka EduPath AI sudah bisa ditunjukkan sebagai prototype pembelajaran adaptif sederhana.
 
 ## Next Step
 
