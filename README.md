@@ -160,8 +160,6 @@ Isinya:
 - penjelasan variabel,
 - persiapan awal dataset.
 
-File ini cocok untuk dibaca anggota tim karena ada markdown penjelasan.
-
 ---
 
 ### `01_data_preparation.py`
