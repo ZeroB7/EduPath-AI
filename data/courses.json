@@ -1,0 +1,98 @@
+{
+    "Programming Basic": {
+        "description": "Course dasar untuk memahami konsep awal pemrograman.",
+        "topics": {
+            "Loops": {
+                "title": "Loops / Perulangan",
+                "difficulty_level": "easy",
+                "material": {
+                    "intro": "Loop atau perulangan adalah cara untuk menjalankan perintah yang sama secara berulang tanpa harus menulis kode berkali-kali.",
+                    "simple_explanation": "Bayangkan kita ingin menampilkan angka 1 sampai 5. Tanpa loop, kita harus menulis perintah print sebanyak lima kali. Dengan loop, kita cukup menulis satu pola perintah, lalu komputer akan mengulanginya sesuai aturan yang kita buat.",
+                    "example_without_loop": "print(1)\nprint(2)\nprint(3)\nprint(4)\nprint(5)",
+                    "example_with_loop": "for angka in range(1, 6):\n    print(angka)",
+                    "key_points": [
+                        "Loop digunakan untuk mengulang perintah.",
+                        "for loop cocok digunakan jika jumlah pengulangan sudah jelas.",
+                        "range(1, 6) menghasilkan angka dari 1 sampai 5.",
+                        "Angka terakhir pada range tidak ikut dihitung."
+                    ]
+                },
+                "video": {
+                    "title": "Video Referensi Python Dasar",
+                    "url": "https://www.youtube.com/watch?v=rfscVS0vtbw",
+                    "note": "Video ini digunakan sebagai referensi tambahan untuk memahami dasar pemrograman Python."
+                },
+                "quiz": [
+                    {
+                        "question": "Apa fungsi utama loop dalam pemrograman ?",
+                        "options": [
+                            "Menghapus data",
+                            "Mengulang perintah",
+                            "Membuat gambar",
+                            "Mengubah warna layar"
+                        ],
+                        "correct_answer": "Mengulang perintah",
+                        "explanation": "Loop digunakan untuk menjalankan perintah yang sama secara berulang tanpa harus menulis kode berkali-kali."
+                    },
+                    {
+                        "question": "Jika kita Menulis range(1, 6) dalam sebuah loop, angka berapa saja yang akan dihasilkan ?",
+                        "options": [
+                            "1, 2, 3, 4, 5",
+                            "1, 2, 3, 4, 5, 6",
+                            "2, 3, 4, 5, 6",
+                            "0, 1, 2, 3, 4"
+                        ],
+                        "correct_answer": "1, 2, 3, 4, 5",
+                        "explanation": "Pada Python, angka terakhir pada range tidak ikut dihitung. Jadi range(1, 6) menghasilkan 1, 2, 3, 4, dan 5."
+                    },
+                    {
+                        "question": "Loop jenis apa yang cocok digunakan jika jumlah pengulangan sudah jelas?",
+                        "options": [
+                            "for loop",
+                            "while loop",
+                            "if statement",
+                            "print loop"
+                        ],
+                        "correct_answer": "for loop",
+                        "explanation": "for loop cocok digunakan ketika jumlah data atau jumlah pengulangan sudah jelas."
+                    },
+                    {
+                        "question": "Apa hasil dari kode berikut: for angka in range(1, 4): print(angka)?",
+                        "options": [
+                            "1 2 3",
+                            "1 2 3 4",
+                            "0 1 2 3",
+                            "4 saja"
+                        ],
+                        "correct_answer": "1 2 3",
+                        "explanation": "range(1, 4) menghasilkan angka 1, 2, dan 3. Angka 4 tidak ikut dicetak."
+                    },
+                    {
+                        "question": "Mengapa loop membantu programmer?",
+                        "options": [
+                            "Karena membuat kode lebih panjang",
+                            "Karena mengurangi penulisan kode berulang",
+                            "Karena menghapus semua error",
+                            "Karena mengganti fungsi database"
+                        ],
+                        "correct_answer": "Karena mengurangi penulisan kode berulang",
+                        "explanation": "Loop membantu agar perintah yang sama tidak perlu ditulis berkali-kali."
+                    }
+                ],
+                "remedial": {
+                    "title": "Materi Penguatan Loops",
+                    "message": "Kamu perlu mengulang kembali konsep dasar perulangan, terutama cara kerja range dan penggunaan for loop.",
+                    "focus_points": [
+                        "Pahami bahwa loop digunakan untuk mengulang perintah.",
+                        "Pelajari kembali cara kerja range(start, stop).",
+                        "Ingat bahwa angka terakhir pada range tidak ikut dihitung.",
+                        "Latih membaca hasil output dari kode loop sederhana."
+                    ],
+                    "remedial_material": "Coba ulangi materi Loops dari bagian contoh kode. Perhatikan bahwa for loop membaca setiap nilai yang dihasilkan oleh range. Jika range(1, 6), maka angka yang digunakan adalah 1, 2, 3, 4, dan 5.",
+                    "suggested_activity": "Kerjakan ulang quiz setelah membaca materi penguatan ini."
+                },
+                "next_topic": "Functions"
+            }
+        }
+    }
+}
