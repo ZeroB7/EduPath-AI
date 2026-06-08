@@ -6,3 +6,6 @@ seaborn
 joblib
 flask
 streamlit
+# Optional - untuk menjalankan notebook lokal
+ipykernel
+jupyter
