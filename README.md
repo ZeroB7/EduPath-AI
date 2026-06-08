@@ -425,4 +425,4 @@ EduPath AI adalah project untuk membantu membaca pemahaman pengguna dari data be
 
 Tahap awal memakai OULAD sebagai baseline. Setelah itu dibuat dataset dummy berbasis `topic_accuracy` agar alur EduPath AI lebih dekat dengan tujuan utama, yaitu mendeteksi topik yang belum dikuasai dan memberi arah remedial.
 
-Project ini belum final sebagai aplikasi besar, tetapi sudah cukup sebagai MVP capstone untuk menunjukkan alur data, model, dan rencana implementasi.
+Project ini menjadi fondasi awal untuk membangun sistem pembelajaran yang lebih personal, adaptif, dan berbasis data.
