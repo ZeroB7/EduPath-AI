@@ -24,7 +24,7 @@
                 },
                 "quiz": [
                     {
-                        "question": "Apa fungsi utama loop dalam pemrograman ?",
+                        "question": "Apa fungsi utama loop dalam pemrograman?",
                         "options": [
                             "Menghapus data",
                             "Mengulang perintah",
@@ -35,7 +35,7 @@
                         "explanation": "Loop digunakan untuk menjalankan perintah yang sama secara berulang tanpa harus menulis kode berkali-kali."
                     },
                     {
-                        "question": "Jika kita Menulis range(1, 6) dalam sebuah loop, angka berapa saja yang akan dihasilkan ?",
+                        "question": "Jika kita menulis range(1, 6) dalam sebuah loop, angka berapa saja yang akan dihasilkan?",
                         "options": [
                             "1, 2, 3, 4, 5",
                             "1, 2, 3, 4, 5, 6",
