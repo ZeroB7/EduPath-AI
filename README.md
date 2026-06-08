@@ -1,54 +1,33 @@
 # EduPath AI
 
-**Personalized Remedial & Adaptive Learning Platform**
+**Catatan project capstone PIJAK / IBM SkillBuild**
 
-EduPath AI adalah project capstone yang dikembangkan untuk membantu menganalisis pemahaman pengguna terhadap materi pembelajaran berdasarkan data evaluasi dan aktivitas belajar. Sistem ini bertujuan mendeteksi apakah pengguna sudah memahami materi atau masih membutuhkan remedial, kemudian memberikan rekomendasi penguatan materi yang sesuai.
+EduPath AI adalah project Machine Learning untuk membantu melihat apakah pengguna sudah memahami materi atau masih perlu remedial.
 
-Project ini dikembangkan sebagai bagian dari program Capstone PIJAK / IBM SkillBuild dengan fokus pada penerapan Machine Learning dalam bidang pendidikan.
+Project ini dibuat sebagai MVP. Jadi fokusnya bukan membuat aplikasi besar dulu, tetapi membuktikan alur utama:
 
----
-
-## Project Overview
-
-Banyak platform pembelajaran hanya menampilkan nilai akhir setelah pengguna mengerjakan evaluasi. Namun, nilai akhir saja belum cukup untuk mengetahui apakah pengguna benar-benar memahami materi yang dipelajari.
-
-EduPath AI mencoba menyelesaikan masalah tersebut dengan cara:
-
-1. Menganalisis hasil evaluasi pengguna.
-2. Mengidentifikasi kemungkinan kebutuhan remedial.
-3. Melihat indikator pembelajaran seperti nilai, aktivitas belajar, dan akurasi per topik.
-4. Memberikan rekomendasi penguatan materi secara lebih personal.
-
-Dengan demikian, EduPath AI tidak hanya berfungsi sebagai sistem penilaian, tetapi juga sebagai sistem diagnosis pembelajaran.
+```text
+Data belajar pengguna
+↓
+Diolah menjadi fitur
+↓
+Model Machine Learning memprediksi kebutuhan remedial
+↓
+Sistem memberi arah rekomendasi belajar
+```
 
 ---
 
-## Problem Statement
+## Tujuan Project
 
-Dalam proses pembelajaran, pengguna sering kali hanya mendapatkan hasil akhir berupa nilai tanpa mengetahui bagian materi mana yang belum dikuasai.
+Tujuan sederhana dari EduPath AI:
 
-Permasalahan utama yang ingin diselesaikan:
+1. Mengolah data belajar.
+2. Melihat pola dari nilai dan aktivitas pengguna.
+3. Memprediksi apakah pengguna perlu remedial.
+4. Menyiapkan dasar untuk rekomendasi materi penguatan.
 
-> Bagaimana sistem dapat membantu mengidentifikasi apakah pengguna sudah memahami materi dan menentukan apakah pengguna membutuhkan remedial berdasarkan data pembelajaran?
-
----
-
-## Proposed Solution
-
-EduPath AI menggunakan pendekatan Machine Learning untuk menganalisis data pembelajaran pengguna.
-
-Sistem memanfaatkan indikator seperti:
-
-* rata-rata nilai assessment,
-* aktivitas belajar,
-* hasil evaluasi,
-* jumlah jawaban benar,
-* jumlah jawaban salah,
-* akurasi per topik,
-* jumlah percobaan,
-* durasi belajar.
-
-Output utama sistem:
+Output utama model:
 
 ```text
 0 = Tidak Perlu Remedial
@@ -57,68 +36,53 @@ Output utama sistem:
 
 ---
 
-## Main Features
+## Gambaran Alur Project
 
-Pada tahap MVP, fitur yang dikembangkan meliputi:
+Alur kerja project ini dibuat bertahap:
 
-1. **Data Understanding**
+```text
+1. Data Understanding
+2. EDA
+3. Data Preparation
+4. Feature Engineering
+5. Training Model
+6. Evaluasi Model
+7. Simulasi Topic Accuracy
+8. Save Model
+9. Demo Aplikasi
+```
 
-   * Memahami struktur dataset OULAD.
-   * Melakukan eksplorasi data awal.
-   * Mengecek missing value dan distribusi data.
-
-2. **Feature Engineering**
-
-   * Membuat fitur `avg_score`.
-   * Membuat fitur `total_click`.
-   * Membuat dataset hasil olahan EduPath v1.
-
-3. **Baseline Machine Learning Model**
-
-   * Logistic Regression.
-   * Random Forest.
-   * Evaluasi menggunakan accuracy, confusion matrix, classification report.
-
-4. **Topic Accuracy Simulation**
-
-   * Menggunakan dataset dummy EduPath v2.
-   * Menganalisis pemahaman pengguna berdasarkan `topic_accuracy`.
-   * Melatih model simulasi untuk prediksi kebutuhan remedial.
-
-5. **Model Export**
-
-   * Menyimpan model Machine Learning.
-   * Menyimpan encoder untuk kebutuhan integrasi backend.
+Saat ini project sudah sampai tahap modeling dan simulasi `topic_accuracy`.
 
 ---
 
-## Dataset
+## Dataset yang Dipakai
 
-Project ini menggunakan dua jenis dataset:
+Project ini memakai dua jenis dataset.
 
 ### 1. OULAD Dataset
 
-OULAD digunakan sebagai baseline dataset karena memiliki data pembelajaran nyata seperti:
+OULAD dipakai sebagai dataset awal atau baseline.
 
-* informasi siswa,
-* hasil assessment,
-* aktivitas pembelajaran,
-* final result.
+Dataset ini berisi data seperti:
 
-Dataset OULAD digunakan untuk membangun model awal prediksi kebutuhan remedial.
+- informasi siswa,
+- nilai assessment,
+- aktivitas belajar,
+- hasil akhir pembelajaran.
 
-File utama yang digunakan:
+File OULAD yang dibutuhkan secara lokal:
 
 ```text
-studentInfo.csv
-studentAssessment.csv
-studentVle.csv
-vle.csv
+dataset/raw/studentInfo.csv
+dataset/raw/studentAssessment.csv
+dataset/raw/studentVle.csv
+dataset/raw/vle.csv
 ```
 
 Catatan:
 
-Dataset mentah tidak disertakan di repository karena ukuran file cukup besar. Dataset mentah disimpan secara lokal di folder:
+File mentah OULAD tidak di-upload ke GitHub karena ukurannya besar. File tersebut tetap disimpan di komputer masing-masing pada folder:
 
 ```text
 dataset/raw/
@@ -128,36 +92,26 @@ dataset/raw/
 
 ### 2. EduPath Dummy Dataset v2
 
-Dataset dummy EduPath v2 digunakan untuk mensimulasikan struktur data ideal EduPath AI.
+Dataset dummy v2 dipakai untuk simulasi data ideal EduPath AI.
 
-Dataset ini berisi fitur seperti:
+Dataset ini lebih dekat dengan tujuan utama project karena memiliki kolom:
 
 ```text
-user_id
-subject
-topic
-difficulty_level
-total_questions
+topic_accuracy
 correct_answers
 wrong_answers
-topic_accuracy
 attempt_count
 study_duration_minutes
 pre_test_score
-post_test_score
-improvement_score
-mastery_level
 needs_remedial
 recommended_action
-remediation_material_id
-interaction_date
 ```
 
-Dataset dummy ini digunakan untuk membuktikan bahwa indikator `topic_accuracy` dapat menjadi dasar dalam mendeteksi kebutuhan remedial pengguna.
+Dataset ini membantu menunjukkan bahwa sistem bisa membaca pemahaman per topik, bukan hanya nilai akhir.
 
 ---
 
-## Project Structure
+## Struktur Folder
 
 ```text
 EduPath-AI/
@@ -182,9 +136,7 @@ EduPath-AI/
 │   └── edupath_topic_accuracy_encoders.pkl
 │
 ├── backend/
-│
 ├── docs/
-│
 ├── screenshots/
 │
 ├── README.md
@@ -194,144 +146,171 @@ EduPath-AI/
 
 ---
 
-## Machine Learning Workflow
+## Penjelasan File Penting
 
-Alur pemodelan Machine Learning pada project ini:
+### `01_data_understanding_preparation.ipynb`
 
-```text
-Raw Dataset
-↓
-Data Understanding
-↓
-Data Cleaning
-↓
-Feature Engineering
-↓
-Dataset Preparation
-↓
-Train-Test Split
-↓
-Model Training
-↓
-Model Evaluation
-↓
-Feature Importance Analysis
-↓
-Model Export
-```
+Notebook ini dipakai untuk memahami dataset.
+
+Isinya:
+
+- membaca dataset OULAD,
+- melihat isi data,
+- EDA sederhana,
+- penjelasan variabel,
+- persiapan awal dataset.
+
+File ini cocok untuk dibaca anggota tim karena ada markdown penjelasan.
+
+---
+
+### `01_data_preparation.py`
+
+Script ini dipakai untuk membuat dataset hasil olahan.
+
+Yang dilakukan:
+
+- membaca `studentInfo.csv`, `studentAssessment.csv`, dan `studentVle.csv`,
+- membuat `avg_score`,
+- membuat `total_click`,
+- menggabungkan data,
+- membuat target `needs_remedial`,
+- menyimpan hasil ke `dataset/processed/edupath_dataset_v1.csv`.
+
+---
+
+### `02_train_baseline_model.py`
+
+Script ini dipakai untuk model baseline menggunakan Logistic Regression.
+
+Tujuannya untuk membuat pembanding awal sebelum model lain dicoba.
+
+---
+
+### `03_random_forest_model.py`
+
+Script ini dipakai untuk training Random Forest.
+
+Di sini kita melihat:
+
+- accuracy,
+- confusion matrix,
+- classification report,
+- feature importance.
+
+---
+
+### `04_train_dummy_topic_accuracy_model.ipynb`
+
+Notebook ini dipakai untuk simulasi model berbasis `topic_accuracy`.
+
+Notebook ini penting karena arah akhir EduPath AI adalah melihat pemahaman pengguna per topik.
 
 ---
 
 ## Feature Engineering
 
-Pada dataset OULAD, dilakukan pembuatan fitur baru:
+Pada OULAD, beberapa fitur tidak langsung tersedia, jadi kita buat fitur baru.
 
-### avg_score
+### `avg_score`
 
-Rata-rata nilai assessment setiap siswa.
+Rata-rata nilai assessment siswa.
 
 ```text
-avg_score = mean(score)
+avg_score = rata-rata score
 ```
 
-Fitur ini digunakan untuk merepresentasikan performa akademik pengguna.
+Fitur ini dipakai untuk melihat performa akademik.
 
-### total_click
+### `total_click`
 
-Jumlah aktivitas belajar pengguna pada Virtual Learning Environment.
+Total aktivitas belajar siswa di platform.
 
 ```text
-total_click = sum(sum_click)
+total_click = jumlah seluruh sum_click
 ```
 
-Fitur ini digunakan untuk merepresentasikan keterlibatan pengguna dalam proses pembelajaran.
+Fitur ini dipakai untuk melihat aktivitas belajar.
 
-### needs_remedial
+### `needs_remedial`
 
-Target klasifikasi yang dibuat dari `final_result`.
+Target yang ingin diprediksi.
 
-Aturan:
+Aturan awal:
 
 ```text
-Fail       → 1
-Withdrawn  → 1
-Pass       → 0
-Distinction → 0
+Fail        = 1
+Withdrawn   = 1
+Pass        = 0
+Distinction = 0
 ```
 
 ---
 
-## Baseline Model
+## Hasil Model Sementara
 
-Model baseline yang digunakan:
+### Baseline OULAD
 
-1. Logistic Regression
-2. Random Forest
+| Model | Accuracy | Catatan |
+|---|---:|---|
+| Logistic Regression | 73.92% | Accuracy sedikit lebih tinggi |
+| Random Forest | 73.13% | Recall remedial lebih baik |
 
-Hasil baseline pada dataset OULAD:
+Catatan:
 
-| Model               | Accuracy | Catatan                          |
-| ------------------- | -------: | -------------------------------- |
-| Logistic Regression |   73.92% | Accuracy lebih tinggi            |
-| Random Forest       |   73.13% | Recall kelas remedial lebih baik |
-
-Pada konteks EduPath AI, recall untuk kelas `needs_remedial = 1` penting karena sistem perlu mendeteksi pengguna yang membutuhkan bantuan belajar.
+Untuk EduPath AI, mendeteksi pengguna yang perlu remedial lebih penting daripada sekadar accuracy tinggi.
 
 ---
 
-## Topic Accuracy Model
+### Simulasi Topic Accuracy
 
-Dataset dummy EduPath v2 digunakan untuk simulasi model berbasis `topic_accuracy`.
-
-Hasil model menunjukkan bahwa fitur paling berpengaruh adalah:
+Pada dataset dummy v2, fitur paling penting adalah:
 
 1. `topic_accuracy`
 2. `pre_test_score`
 3. `wrong_answers`
 4. `correct_answers`
 
-Temuan ini mendukung konsep utama EduPath AI bahwa pemahaman per topik lebih relevan untuk mendeteksi kebutuhan remedial dibandingkan hanya melihat nilai akhir.
+Catatan:
 
-Catatan penting:
-
-Hasil akurasi pada dataset dummy tidak diklaim sebagai performa dunia nyata. Dataset dummy digunakan sebagai proof of concept untuk menunjukkan struktur data ideal EduPath AI.
+Hasil dari dataset dummy tidak dianggap sebagai performa dunia nyata. Dataset ini hanya dipakai untuk simulasi alur ideal EduPath AI.
 
 ---
 
-## How to Run
+## Cara Menjalankan Project
 
-### 1. Clone Repository
+### 1. Clone repository
 
 ```bash
 git clone https://github.com/ZeroB7/EduPath-AI.git
 cd EduPath-AI
 ```
 
-### 2. Create Virtual Environment
+### 2. Buat virtual environment
 
 ```bash
 python -m venv venv
 ```
 
-Aktifkan environment:
+Aktifkan di Git Bash:
 
 ```bash
 source venv/Scripts/activate
 ```
 
-atau pada CMD Windows:
+Atau di CMD Windows:
 
 ```bash
 venv\Scripts\activate
 ```
 
-### 3. Install Dependencies
+### 3. Install library
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Siapkan Dataset Mentah
+### 4. Siapkan dataset OULAD
 
 Masukkan file OULAD ke folder:
 
@@ -339,16 +318,16 @@ Masukkan file OULAD ke folder:
 dataset/raw/
 ```
 
-Contoh:
+Minimal file yang dibutuhkan:
 
 ```text
-dataset/raw/studentInfo.csv
-dataset/raw/studentAssessment.csv
-dataset/raw/studentVle.csv
-dataset/raw/vle.csv
+studentInfo.csv
+studentAssessment.csv
+studentVle.csv
+vle.csv
 ```
 
-### 5. Jalankan Data Preparation
+### 5. Buat dataset hasil olahan
 
 ```bash
 python notebooks/01_data_preparation.py
@@ -360,76 +339,90 @@ Output:
 dataset/processed/edupath_dataset_v1.csv
 ```
 
-### 6. Jalankan Baseline Model
+### 6. Jalankan model baseline
 
 ```bash
 python notebooks/02_train_baseline_model.py
 ```
 
-### 7. Jalankan Random Forest Model
+### 7. Jalankan Random Forest
 
 ```bash
 python notebooks/03_random_forest_model.py
 ```
 
-### 8. Jalankan Notebook Topic Accuracy
+### 8. Jalankan simulasi topic accuracy
 
-Buka dan jalankan:
+Buka notebook:
 
 ```text
 notebooks/04_train_dummy_topic_accuracy_model.ipynb
 ```
 
----
-
-## Current Status
-
-Status project saat ini:
-
-* Dataset OULAD berhasil diproses.
-* Dataset EduPath v1 berhasil dibuat.
-* Baseline model berhasil dilatih.
-* Random Forest berhasil dievaluasi.
-* Dataset dummy EduPath v2 berbasis `topic_accuracy` berhasil dibuat.
-* Model simulasi berbasis `topic_accuracy` berhasil dilatih.
-* Model dan encoder berhasil disimpan ke folder `models/`.
+Lalu jalankan cell dari atas sampai bawah.
 
 ---
 
-## Limitations
+## Status Project Saat Ini
 
-Project ini masih berada pada tahap MVP dan proof of concept.
+Yang sudah selesai:
 
-Beberapa keterbatasan:
+- Struktur folder project.
+- GitHub repository.
+- EDA dan data understanding.
+- Dataset preparation OULAD.
+- Dataset processed EduPath v1.
+- Baseline model Logistic Regression.
+- Random Forest model.
+- Dataset dummy EduPath v2 berbasis `topic_accuracy`.
+- Notebook simulasi topic accuracy.
+- Model dan encoder untuk simulasi topic accuracy.
 
-1. Dataset OULAD belum memiliki informasi akurasi per topik.
-2. Dataset dummy v2 masih berupa simulasi, bukan data pengguna nyata.
-3. Model belum terintegrasi penuh dengan backend aplikasi.
-4. Sistem rekomendasi materi masih dirancang sebagai tahap lanjutan.
-5. Continuous learning belum diterapkan pada tahap MVP.
+Yang belum dikerjakan:
 
----
-
-## Future Development
-
-Pengembangan berikutnya:
-
-1. Integrasi model dengan backend.
-2. Pembuatan API prediksi remedial.
-3. Pembuatan dashboard pengguna.
-4. Pengumpulan data pengguna nyata.
-5. Perhitungan `topic_accuracy` dari hasil quiz real.
-6. Rekomendasi materi berdasarkan topik lemah.
-7. Continuous model improvement berdasarkan data pengguna baru.
+- Demo aplikasi Streamlit.
+- Integrasi model ke tampilan aplikasi.
+- Screenshot demo.
+- Dokumentasi final untuk presentasi.
 
 ---
 
-## Conclusion
+## Catatan Penting untuk Tim
 
-EduPath AI merupakan platform pembelajaran adaptif berbasis Machine Learning yang bertujuan membantu mengidentifikasi kebutuhan remedial pengguna berdasarkan data pembelajaran.
+1. Jangan upload isi folder `dataset/raw/` ke GitHub.
+2. Kalau ingin menjalankan OULAD, file mentah harus ada di komputer lokal.
+3. Dataset dummy v2 sudah ada di `dataset/processed/`.
+4. Modeling sudah cukup untuk MVP, jangan tambah model baru dulu.
+5. Fokus berikutnya adalah membuat demo aplikasi sederhana.
 
-Pada tahap awal, project menggunakan OULAD sebagai baseline dataset dan dataset dummy EduPath v2 sebagai simulasi data ideal berbasis `topic_accuracy`.
+---
 
-Hasil eksperimen menunjukkan bahwa indikator pemahaman per topik memiliki peran penting dalam menentukan apakah pengguna membutuhkan remedial.
+## Next Step
 
-Project ini menjadi fondasi awal untuk membangun sistem pembelajaran yang lebih personal, adaptif, dan berbasis data.
+Tahap berikutnya:
+
+```text
+Buat app.py
+↓
+Load model topic_accuracy
+↓
+User input data belajar
+↓
+Prediksi perlu remedial atau tidak
+↓
+Tampilkan rekomendasi
+↓
+Ambil screenshot demo
+```
+
+Untuk demo, rencana paling sederhana adalah memakai Streamlit.
+
+---
+
+## Kesimpulan Singkat
+
+EduPath AI adalah project untuk membantu membaca pemahaman pengguna dari data belajar.
+
+Tahap awal memakai OULAD sebagai baseline. Setelah itu dibuat dataset dummy berbasis `topic_accuracy` agar alur EduPath AI lebih dekat dengan tujuan utama, yaitu mendeteksi topik yang belum dikuasai dan memberi arah remedial.
+
+Project ini belum final sebagai aplikasi besar, tetapi sudah cukup sebagai MVP capstone untuk menunjukkan alur data, model, dan rencana implementasi.
