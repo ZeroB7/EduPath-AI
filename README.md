@@ -249,18 +249,58 @@ Distinction = 0
 
 ### Baseline OULAD
 
-| Model | Accuracy | Catatan |
-|---|---:|---|
-| Logistic Regression | 73.92% | Accuracy sedikit lebih tinggi |
-| Random Forest | 73.13% | Recall remedial lebih baik |
+Model awal dibuat menggunakan dataset OULAD hasil olahan `edupath_dataset_v1.csv`.
+
+| Model               | Accuracy | Catatan                                          |
+| ------------------- | -------: | ------------------------------------------------ |
+| Logistic Regression |   73.92% | Accuracy sedikit lebih tinggi pada baseline awal |
+| Random Forest       |   73.13% | Recall remedial lebih baik pada baseline awal    |
 
 Catatan:
 
-Untuk EduPath AI, mendeteksi pengguna yang perlu remedial lebih penting daripada sekadar accuracy tinggi.
+Pada tahap baseline, fitur yang digunakan masih sederhana, seperti `avg_score`, `total_click`, data demografi, dan riwayat percobaan belajar.
+
+Untuk EduPath AI, mendeteksi pengguna yang perlu remedial lebih penting daripada hanya mengejar accuracy tinggi.
+
+---
+
+### Eksperimen Model Improved OULAD
+
+Setelah baseline selesai, dilakukan eksperimen tambahan dengan menambahkan feature baru dari data assessment dan aktivitas belajar.
+
+Feature tambahan yang digunakan:
+
+```text
+assessment_count
+avg_date_submitted
+banked_count
+active_days
+avg_click_per_day
+max_click_day
+```
+
+Hasil eksperimen:
+
+| Model                        | Accuracy | Catatan                                   |
+| ---------------------------- | -------: | ----------------------------------------- |
+| Logistic Regression Baseline |   73.92% | Model awal                                |
+| Random Forest Baseline       |   73.13% | Model pembanding awal                     |
+| Random Forest Improved       |   89.92% | Hasil terbaik setelah feature engineering |
+| Gradient Boosting            |   89.61% | Hasil mendekati Random Forest Improved    |
+
+Catatan:
+
+Random Forest Improved menjadi model terbaik pada eksperimen OULAD karena accuracy naik menjadi 89.92%.
+
+Peningkatan ini terjadi karena model mendapat informasi tambahan, seperti jumlah assessment yang dikerjakan, rata-rata waktu submit, jumlah hari aktif belajar, dan pola klik pengguna.
+
+Model improved ini cocok untuk dokumentasi eksperimen modeling dan pengembangan lanjutan.
 
 ---
 
 ### Simulasi Topic Accuracy
+
+Selain OULAD, project ini juga menggunakan dataset dummy v2 berbasis `topic_accuracy`.
 
 Pada dataset dummy v2, fitur paling penting adalah:
 
@@ -273,7 +313,32 @@ Catatan:
 
 Hasil dari dataset dummy tidak dianggap sebagai performa dunia nyata. Dataset ini hanya dipakai untuk simulasi alur ideal EduPath AI.
 
+Untuk demo aplikasi berbasis course dan quiz, model `topic_accuracy` tetap lebih cocok digunakan karena alurnya sesuai dengan:
+
+```text
+course
+↓
+materi
+↓
+quiz
+↓
+topic_accuracy
+↓
+prediksi remedial
+```
+
+Jadi pembagian penggunaannya:
+
+```text
+Model Improved OULAD:
+dipakai untuk dokumentasi eksperimen peningkatan model.
+
+Model Topic Accuracy:
+dipakai untuk demo aplikasi pembelajaran berbasis course dan quiz.
+```
+
 ---
+
 
 ## Cara Menjalankan Project
 
