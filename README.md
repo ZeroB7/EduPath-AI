@@ -64,7 +64,7 @@ Project ini memakai dua jenis dataset.
 ### 1. OULAD Dataset
 
 OULAD dipakai sebagai dataset awal atau baseline.
-
+download : https://analyse.kmi.open.ac.uk/open-dataset
 Dataset ini berisi data seperti:
 
 - informasi siswa,
