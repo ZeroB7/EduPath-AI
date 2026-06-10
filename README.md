@@ -4,7 +4,7 @@
 
 EduPath AI adalah project Machine Learning untuk membantu melihat apakah pengguna sudah memahami materi atau masih perlu remedial.
 
-Project ini dibuat sebagai MVP. Jadi fokusnya bukan membuat aplikasi besar dulu, tetapi membuktikan alur utama:
+Project ini dibuat sebagai MVP. Fokus awalnya bukan membuat aplikasi besar dulu, tetapi membuktikan alur utama:
 
 ```text
 Data belajar pengguna
@@ -48,11 +48,12 @@ Alur kerja project ini dibuat bertahap:
 5. Training Model
 6. Evaluasi Model
 7. Simulasi Topic Accuracy
-8. Save Model
-9. Demo Aplikasi
+8. Eksperimen Improved Model
+9. Save Model
+10. Demo Aplikasi
 ```
 
-Saat ini project sudah sampai tahap modeling dan simulasi `topic_accuracy`.
+Saat ini tahap dataset, preprocessing, EDA, dan modeling sudah selesai untuk MVP. Project sedang masuk ke tahap demo aplikasi berbasis course, materi, quiz, dan prediksi remedial.
 
 ---
 
@@ -77,6 +78,7 @@ File OULAD yang dibutuhkan secara lokal:
 dataset/raw/studentInfo.csv
 dataset/raw/studentAssessment.csv
 dataset/raw/studentVle.csv
+dataset/raw/assessments.csv
 dataset/raw/vle.csv
 ```
 
@@ -116,6 +118,13 @@ Dataset ini membantu menunjukkan bahwa sistem bisa membaca pemahaman per topik, 
 ```text
 EduPath-AI/
 │
+├── backend/
+│   └── .gitkeep
+│
+├── data/
+│   ├── .gitkeep
+│   └── courses.json
+│
 ├── dataset/
 │   ├── raw/
 │   │   └── .gitkeep
@@ -124,20 +133,24 @@ EduPath-AI/
 │       ├── edupath_dataset_v1.csv
 │       └── edupath_dataset_v2_dummy_topic_accuracy.csv
 │
+├── docs/
+│   └── .gitkeep
+│
+├── models/
+│   ├── edupath_topic_accuracy_model.pkl
+│   ├── edupath_topic_accuracy_encoders.pkl
+│   └── edupath_oulad_improved_rf_model.pkl
+│
 ├── notebooks/
 │   ├── 01_data_understanding_preparation.ipynb
 │   ├── 01_data_preparation.py
 │   ├── 02_train_baseline_model.py
 │   ├── 03_random_forest_model.py
-│   └── 04_train_dummy_topic_accuracy_model.ipynb
+│   ├── 04_train_dummy_topic_accuracy_model.ipynb
+│   └── 05_improve_model_feature_engineering.ipynb
 │
-├── models/
-│   ├── edupath_topic_accuracy_model.pkl
-│   └── edupath_topic_accuracy_encoders.pkl
-│
-├── backend/
-├── docs/
 ├── screenshots/
+│   └── .gitkeep
 │
 ├── README.md
 ├── requirements.txt
@@ -187,7 +200,7 @@ Tujuannya untuk membuat pembanding awal sebelum model lain dicoba.
 
 ### `03_random_forest_model.py`
 
-Script ini dipakai untuk training Random Forest.
+Script ini dipakai untuk training Random Forest baseline.
 
 Di sini kita melihat:
 
@@ -203,6 +216,35 @@ Di sini kita melihat:
 Notebook ini dipakai untuk simulasi model berbasis `topic_accuracy`.
 
 Notebook ini penting karena arah akhir EduPath AI adalah melihat pemahaman pengguna per topik.
+
+---
+
+### `05_improve_model_feature_engineering.ipynb`
+
+Notebook ini dipakai untuk eksperimen peningkatan model OULAD.
+
+Yang dilakukan:
+
+- menambah feature dari assessment,
+- menambah feature dari aktivitas VLE,
+- melatih Random Forest Improved,
+- membandingkan hasil dengan baseline,
+- menyimpan model improved ke folder `models/`.
+
+---
+
+### `data/courses.json`
+
+File ini dipakai untuk menyimpan data course demo.
+
+Isi awalnya:
+
+```text
+Course: Programming Basic
+Topik : Loops
+```
+
+File ini berisi materi, video, quiz, jawaban benar, pembahasan, dan materi remedial. File ini akan dipakai oleh `app.py` pada tahap demo aplikasi.
 
 ---
 
@@ -243,6 +285,21 @@ Pass        = 0
 Distinction = 0
 ```
 
+### Feature tambahan pada model improved
+
+Pada eksperimen improved model, ditambahkan beberapa feature baru:
+
+```text
+assessment_count
+avg_date_submitted
+banked_count
+active_days
+avg_click_per_day
+max_click_day
+```
+
+Feature tambahan ini membantu model membaca pola pengerjaan assessment dan aktivitas belajar dengan lebih lengkap.
+
 ---
 
 ## Hasil Model Sementara
@@ -251,10 +308,10 @@ Distinction = 0
 
 Model awal dibuat menggunakan dataset OULAD hasil olahan `edupath_dataset_v1.csv`.
 
-| Model               | Accuracy | Catatan                                          |
-| ------------------- | -------: | ------------------------------------------------ |
-| Logistic Regression |   73.92% | Accuracy sedikit lebih tinggi pada baseline awal |
-| Random Forest       |   73.13% | Recall remedial lebih baik pada baseline awal    |
+| Model | Accuracy | Catatan |
+|---|---:|---|
+| Logistic Regression | 73.92% | Accuracy sedikit lebih tinggi pada baseline awal |
+| Random Forest | 73.13% | Recall remedial lebih baik pada baseline awal |
 
 Catatan:
 
@@ -268,25 +325,14 @@ Untuk EduPath AI, mendeteksi pengguna yang perlu remedial lebih penting daripada
 
 Setelah baseline selesai, dilakukan eksperimen tambahan dengan menambahkan feature baru dari data assessment dan aktivitas belajar.
 
-Feature tambahan yang digunakan:
-
-```text
-assessment_count
-avg_date_submitted
-banked_count
-active_days
-avg_click_per_day
-max_click_day
-```
-
 Hasil eksperimen:
 
-| Model                        | Accuracy | Catatan                                   |
-| ---------------------------- | -------: | ----------------------------------------- |
-| Logistic Regression Baseline |   73.92% | Model awal                                |
-| Random Forest Baseline       |   73.13% | Model pembanding awal                     |
-| Random Forest Improved       |   89.92% | Hasil terbaik setelah feature engineering |
-| Gradient Boosting            |   89.61% | Hasil mendekati Random Forest Improved    |
+| Model | Accuracy | Catatan |
+|---|---:|---|
+| Logistic Regression Baseline | 73.92% | Model awal |
+| Random Forest Baseline | 73.13% | Model pembanding awal |
+| Random Forest Improved | 89.92% | Hasil terbaik setelah feature engineering |
+| Gradient Boosting | 89.61% | Hasil mendekati Random Forest Improved |
 
 Catatan:
 
@@ -339,7 +385,6 @@ dipakai untuk demo aplikasi pembelajaran berbasis course dan quiz.
 
 ---
 
-
 ## Cara Menjalankan Project
 
 ### 1. Clone repository
@@ -387,6 +432,7 @@ Minimal file yang dibutuhkan:
 studentInfo.csv
 studentAssessment.csv
 studentVle.csv
+assessments.csv
 vle.csv
 ```
 
@@ -408,7 +454,7 @@ dataset/processed/edupath_dataset_v1.csv
 python notebooks/02_train_baseline_model.py
 ```
 
-### 7. Jalankan Random Forest
+### 7. Jalankan Random Forest baseline
 
 ```bash
 python notebooks/03_random_forest_model.py
@@ -424,6 +470,16 @@ notebooks/04_train_dummy_topic_accuracy_model.ipynb
 
 Lalu jalankan cell dari atas sampai bawah.
 
+### 9. Jalankan eksperimen improved model
+
+Buka notebook:
+
+```text
+notebooks/05_improve_model_feature_engineering.ipynb
+```
+
+Notebook ini digunakan jika ingin melihat eksperimen peningkatan model OULAD.
+
 ---
 
 ## Status Project Saat Ini
@@ -436,15 +492,20 @@ Yang sudah selesai:
 - Dataset preparation OULAD.
 - Dataset processed EduPath v1.
 - Baseline model Logistic Regression.
-- Random Forest model.
+- Random Forest baseline.
+- Eksperimen Random Forest Improved OULAD.
+- Accuracy improved model mencapai 89.92%.
 - Dataset dummy EduPath v2 berbasis `topic_accuracy`.
 - Notebook simulasi topic accuracy.
 - Model dan encoder untuk simulasi topic accuracy.
+- Model improved OULAD tersimpan di folder `models/`.
+- Data course demo `Programming Basic - Loops` sudah dibuat di `data/courses.json`.
 
 Yang belum dikerjakan:
 
 - Demo aplikasi Streamlit.
-- Integrasi model ke tampilan aplikasi.
+- Integrasi `courses.json` ke tampilan aplikasi.
+- Integrasi model topic accuracy ke aplikasi.
 - Screenshot demo.
 - Dokumentasi final untuk presentasi.
 
@@ -455,10 +516,12 @@ Yang belum dikerjakan:
 1. Jangan upload isi folder `dataset/raw/` ke GitHub.
 2. Kalau ingin menjalankan OULAD, file mentah harus ada di komputer lokal.
 3. Dataset dummy v2 sudah ada di `dataset/processed/`.
-4. Modeling sudah cukup untuk MVP, jangan tambah model baru dulu.
-5. Fokus berikutnya adalah membuat demo aplikasi sederhana.
+4. Data course demo sudah ada di `data/courses.json`.
+5. Modeling sudah cukup untuk MVP, jangan tambah model baru dulu.
+6. Fokus berikutnya adalah membuat demo aplikasi Streamlit.
 
 ---
+
 ## Rencana Alur Aplikasi Demo
 
 Setelah tahap dataset dan modeling selesai, langkah berikutnya adalah membuat demo aplikasi sederhana.
@@ -512,7 +575,13 @@ Tujuannya agar alur aplikasi selesai terlebih dahulu sebelum menambah course lai
 
 ### Data yang Perlu Disiapkan
 
-Agar aplikasi bisa berjalan, tim perlu menyiapkan data sederhana seperti:
+Agar aplikasi bisa berjalan, data sederhana sudah mulai disiapkan di:
+
+```text
+data/courses.json
+```
+
+Data yang disiapkan meliputi:
 
 ```text
 course
@@ -525,12 +594,6 @@ jawaban benar
 pembahasan soal
 materi remedial
 topik berikutnya
-```
-
-Untuk tahap awal, data ini bisa disimpan di file JSON:
-
-```text
-data/courses.json
 ```
 
 Nanti jika project berkembang, data ini bisa dipindahkan ke database.
@@ -614,13 +677,15 @@ Rekomendasi:
 
 ---
 
-### File yang Akan Ditambahkan
+### File yang Dipakai untuk Demo
 
-Untuk membuat demo aplikasi, file yang akan ditambahkan adalah:
+Untuk membuat demo aplikasi, file yang digunakan adalah:
 
 ```text
 app.py
 data/courses.json
+models/edupath_topic_accuracy_model.pkl
+models/edupath_topic_accuracy_encoders.pkl
 ```
 
 Penjelasan:
@@ -636,6 +701,13 @@ data/courses.json
 ```
 
 Digunakan untuk menyimpan course, materi, quiz, video, pembahasan, dan rekomendasi remedial.
+
+```text
+models/edupath_topic_accuracy_model.pkl
+models/edupath_topic_accuracy_encoders.pkl
+```
+
+Digunakan untuk prediksi kebutuhan remedial pada demo aplikasi.
 
 ---
 
@@ -654,6 +726,8 @@ Aplikasi menampilkan rekomendasi belajar
 
 Jika alur ini sudah berjalan, maka EduPath AI sudah bisa ditunjukkan sebagai prototype pembelajaran adaptif sederhana.
 
+---
+
 ## Next Step
 
 Tahap berikutnya:
@@ -661,13 +735,19 @@ Tahap berikutnya:
 ```text
 Buat app.py
 ↓
-Load model topic_accuracy
+Load data/courses.json
 ↓
-User input data belajar
+Tampilkan course dan materi
+↓
+User mengerjakan quiz
+↓
+Sistem menghitung topic_accuracy
+↓
+Load model topic_accuracy
 ↓
 Prediksi perlu remedial atau tidak
 ↓
-Tampilkan rekomendasi
+Tampilkan rekomendasi belajar
 ↓
 Ambil screenshot demo
 ```
@@ -682,4 +762,4 @@ EduPath AI adalah project untuk membantu membaca pemahaman pengguna dari data be
 
 Tahap awal memakai OULAD sebagai baseline. Setelah itu dibuat dataset dummy berbasis `topic_accuracy` agar alur EduPath AI lebih dekat dengan tujuan utama, yaitu mendeteksi topik yang belum dikuasai dan memberi arah remedial.
 
-Project ini menjadi fondasi awal untuk membangun sistem pembelajaran yang lebih personal, adaptif, dan berbasis data.
+Project ini sekarang sudah memiliki baseline model, improved model, simulasi topic accuracy, dan data course demo. Tahap berikutnya adalah membuat aplikasi demo Streamlit agar alur pembelajaran dan prediksi remedial bisa ditampilkan secara langsung.
