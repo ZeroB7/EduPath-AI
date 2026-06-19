@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Nilai Manual - EduPath AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            background-color: #F8FAFC;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 260px;
+            background-color: #EFF6FF;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-right: 1px solid #E2E8F0;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .sidebar-brand .logo-icon {
+            font-size: 28px;
+            color: #1A56DB;
+        }
+
+        .sidebar-brand h2 {
+            font-size: 22px;
+            color: #1A56DB;
+            font-weight: 700;
+        }
+
+        .sidebar-brand p {
+            font-size: 11px;
+            color: #6B7280;
+        }
+
+        .menu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-item a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            color: #4B5563;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .menu-item a:hover {
+            background-color: #DBEAFE;
+            color: #1A56DB;
+            padding-left: 24px;
+        }
+
+        .menu-item.active a {
+            background-color: #1A56DB;
+            color: white;
+        }
+
+        .btn-logout {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            color: #4B5563;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            background-color: #E2E8F0;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            margin-left: 260px;
+            flex: 1;
+            padding: 40px;
+        }
+
+        .header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .welcome-text h1 {
+            font-size: 26px;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .welcome-text p {
+            color: #6B7280;
+            font-size: 14px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            max-width: 700px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            color: #1A56DB;
+            font-weight: 600;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #111827;
+            background-color: #FFFFFF;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #1A56DB;
+            box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background-color: #1A56DB;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #1e429f;
+        }
+
+        .alert-success {
+            background-color: #DEF7EC;
+            color: #03543F;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                <div>
+                    <h2>EduAI</h2>
+                    <p>Asisten Belajar Pintar</p>
+                </div>
+            </div>
+            <ul class="menu-list">
+                <li class="menu-item"><a href="{{ url_for('dashboard_siswa') }}"><i class="fa-solid fa-house"></i> Beranda</a></li>
+                <li class="menu-item active"><a href="#"><i class="fa-solid fa-pen-to-square"></i> Input Nilai</a></li>
+                <li class="menu-item"><a href="{{ url_for('halaman_riwayat') }}"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Saya</a></li>
+                <li class="menu-item"><a href="{{ url_for('halaman_tips') }}"><i class="fa-solid fa-lightbulb"></i> Tips Belajar</a></li>
+                <li class="menu-item"><a href="{{ url_for('halaman_tentang') }}"><i class="fa-solid fa-circle-info"></i> Tentang</a></li>
+            </ul>
+        </div>
+        
+        <div>
+            <a href="{{ url_for('logout') }}" style="text-decoration: none;">
+                <button class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header-area">
+            <div class="welcome-text">
+                <h1>Input Data Belajar Manual 📝</h1>
+                <p>Silakan masukkan data nilai tugas atau ujian secara mandiri untuk dianalisis oleh Model AI.</p>
+            </div>
+        </div>
+
+        {% if pesan_sukses %}
+        <div class="alert-success" style="max-width: 700px;">
+            <i class="fa-solid fa-circle-check"></i> Data berhasil disimpan dan dianalisis oleh sistem AI!
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-database"></i> Formulir Data Nilai</div>
+            
+            <form action="{{ url_for('input_nilai') }}" method="POST">
+                <div class="form-group">
+                    <label for="mapel">Mata Pelajaran</label>
+                    <select id="mapel" name="mapel" class="form-control" required>
+                        <option value="" disabled selected>-- Pilih Mata Pelajaran --</option>
+                        <option value="Matematika">Matematika SMK</option>
+                        <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                        <option value="Bahasa Inggris">Bahasa Inggris</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="topik">Topik / Materi Pembelajaran</label>
+                    <input type="text" id="topik" name="topik" class="form-control" placeholder="Contoh: Matriks, Trigonometri, Eksponen" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="nilai_siswa">Nilai yang Diperoleh (0 - 100)</label>
+                    <input type="number" id="nilai_siswa" name="nilai_siswa" class="form-control" min="0" max="100" placeholder="Masukkan angka nilai" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="durasi_belajar">Durasi Belajar Mandiri (Menit)</label>
+                    <input type="number" id="durasi_belajar" name="durasi_belajar" class="form-control" min="1" placeholder="Contoh: 60" required>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-paper-plane"></i> Kirim Data Analisis
+                </button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

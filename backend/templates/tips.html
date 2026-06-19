@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tips Belajar - EduPath AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            background-color: #F8FAFC;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 260px;
+            background-color: #EFF6FF;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-right: 1px solid #E2E8F0;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .sidebar-brand .logo-icon {
+            font-size: 28px;
+            color: #1A56DB;
+        }
+
+        .sidebar-brand h2 {
+            font-size: 22px;
+            color: #1A56DB;
+            font-weight: 700;
+        }
+
+        .sidebar-brand p {
+            font-size: 11px;
+            color: #6B7280;
+        }
+
+        .menu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-item a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            color: #4B5563;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .menu-item a:hover {
+            background-color: #DBEAFE;
+            color: #1A56DB;
+            padding-left: 24px;
+        }
+
+        .menu-item.active a {
+            background-color: #1A56DB;
+            color: white;
+        }
+
+        .btn-logout {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            color: #4B5563;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            background-color: #E2E8F0;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            margin-left: 260px;
+            flex: 1;
+            padding: 40px;
+        }
+
+        .header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .welcome-text h1 {
+            font-size: 26px;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .welcome-text p {
+            color: #6B7280;
+            font-size: 14px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            max-width: 800px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            color: #1A56DB;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #6B7280;
+            margin-bottom: 24px;
+        }
+
+        .tips-box {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tips-item {
+            background-color: #F8FAFC;
+            border-left: 4px solid #1A56DB;
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            border: 1px solid #E2E8F0;
+            border-top-width: 0;
+            border-right-width: 1px;
+            border-bottom-width: 1px;
+        }
+
+        .tips-icon {
+            background-color: #E0E7FF;
+            color: #1A56DB;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 14px;
+        }
+
+        .tips-text h4 {
+            font-size: 14px;
+            color: #111827;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .tips-text p {
+            font-size: 13px;
+            color: #4B5563;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                <div>
+                    <h2>EduAI</h2>
+                    <p>Asisten Belajar Pintar</p>
+                </div>
+            </div>
+            <ul class="menu-list">
+                <li class="menu-item"><a href="{{ url_for('dashboard_siswa') }}"><i class="fa-solid fa-house"></i> Beranda</a></li>
+                <li class="menu-item"><a href="{{ url_for('input_nilai') }}"><i class="fa-solid fa-pen-to-square"></i> Input Nilai</a></li>
+                <li class="menu-item"><a href="{{ url_for('halaman_riwayat') }}"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Saya</a></li>
+                <li class="menu-item active"><a href="#"><i class="fa-solid fa-lightbulb"></i> Tips Belajar</a></li>
+                <li class="menu-item"><a href="{{ url_for('halaman_tentang') }}"><i class="fa-solid fa-circle-info"></i> Tentang</a></li>
+            </ul>
+        </div>
+        
+        <div>
+            <a href="{{ url_for('logout') }}" style="text-decoration: none;">
+                <button class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header-area">
+            <div class="welcome-text">
+                <h1>Rekomendasi Tips Belajar 💡</h1>
+                <p>Strategi belajar personal yang dirancang khusus oleh sistem cerdas untuk mengoptimalkan kompetensimu.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Kategori: {{ kategori }}
+            </div>
+            <div class="subtitle">Berdasarkan hasil riwayat pelacakan akurasi data belajar milik {{ nama }}.</div>
+            
+            <div class="tips-box">
+                {% for tips in data_tips %}
+                    <div class="tips-item">
+                        <div class="tips-icon">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <div class="tips-text">
+                            <h4>Rekomendasi Sistem AI #{{ loop.index }}</h4>
+                            <p>{{ tips }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

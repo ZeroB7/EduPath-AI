@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Saya - EduPath AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { display: flex; background-color: #F8FAFC; min-height: 100vh; }
+
+        /* SIDEBAR */
+        .sidebar { width: 260px; background-color: #EFF6FF; padding: 30px 20px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid #E2E8F0; position: fixed; height: 100vh; }
+        .sidebar-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
+        .sidebar-brand .logo-icon { font-size: 28px; color: #1A56DB; }
+        .sidebar-brand h2 { font-size: 22px; color: #1A56DB; font-weight: 700; }
+        .sidebar-brand p { font-size: 11px; color: #6B7280; }
+        .menu-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .menu-item a { display: flex; align-items: center; gap: 14px; padding: 12px 16px; color: #4B5563; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.3s; }
+        .menu-item a:hover { background-color: #DBEAFE; color: #1A56DB; padding-left: 24px; }
+        .menu-item.active a { background-color: #1A56DB; color: white; }
+        .btn-logout { display: flex; align-items: center; gap: 14px; padding: 12px 16px; color: #4B5563; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 500; background-color: #E2E8F0; border: none; width: 100%; cursor: pointer; }
+
+        /* MAIN CONTENT */
+        .main-content { margin-left: 260px; flex: 1; padding: 40px; }
+        .header-area { margin-bottom: 30px; }
+        .welcome-text h1 { font-size: 26px; color: #111827; margin-bottom: 4px; }
+        .welcome-text p { color: #6B7280; font-size: 14px; }
+
+        /* TABLE STYLE */
+        .card { background: white; border-radius: 16px; padding: 24px; border: 1px solid #E5E7EB; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .card-title { font-size: 18px; color: #1A56DB; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        
+        .table-responsive { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+        th { background-color: #F8FAFC; color: #4B5563; font-weight: 600; padding: 14px; border-bottom: 2px solid #E5E7EB; }
+        td { padding: 14px; border-bottom: 1px solid #E5E7EB; color: #111827; }
+        tr:hover { background-color: #F8FAFC; }
+
+        /* BADGE STATUS */
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+        .badge-success { background-color: #DEF7EC; color: #03543F; }
+        .badge-warning { background-color: #FEF3C7; color: #92400E; }
+        .badge-danger { background-color: #FDE8E8; color: #9B1C1C; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                <div>
+                    <h2>EduAI</h2>
+                    <p>Asisten Belajar Pintar</p>
+                </div>
+            </div>
+            <ul class="menu-list">
+                <li class="menu-item"><a href="{{ url_for('dashboard_siswa') }}"><i class="fa-solid fa-house"></i> Beranda</a></li>
+                <li class="menu-item"><a href="{{ url_for('input_nilai') }}"><i class="fa-solid fa-pen-to-square"></i> Input Nilai</a></li>
+                <li class="menu-item active"><a href="#"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Saya</a></li>
+                <li class="menu-item"><a href="{{ url_for('halaman_tips') }}"><i class="fa-solid fa-lightbulb"></i> Tips Belajar</a></li>
+                <li class="menu-item"><a href="{{ url_for('halaman_tentang') }}"><i class="fa-solid fa-circle-info"></i> Tentang</a></li>
+            </ul>
+        </div>
+        
+        <div>
+            <a href="{{ url_for('logout') }}" style="text-decoration: none;">
+                <button class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header-area">
+            <div class="welcome-text">
+                <h1>Riwayat Aktivitas Belajar 📊</h1>
+                <p>Berikut adalah rekam jejak dataset metrik belajar yang berhasil disimpan di dalam sistem.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-table"></i> Log Dataset Logistik</div>
+            
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mata Pelajaran</th>
+                            <th>Topik Materi</th>
+                            <th>Skor Akurasi</th>
+                            <th>Durasi Mandiri</th>
+                            <th>Prediksi ML</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if data_riwayat %}
+                            {% for baris in data_riwayat %}
+                            <tr>
+                                <td>{{ baris.mapel }}</td>
+                                <td>{{ baris.topik }}</td>
+                                <td><strong>{{ baris.nilai }} / 100</strong></td>
+                                <td>{{ baris.durasi }} Menit</td>
+                                <td>
+                                    <span class="badge 
+                                        {% if 'Tinggi' in baris.prediksi or 'Selesai' in baris.prediksi %}badge-success
+                                        {% elif 'Sedang' in baris.prediksi %}badge-warning
+                                        {% else %}badge-danger{% endif %}">
+                                        {{ baris.prediksi }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5" style="text-align: center; color: #9CA3AF; padding: 30px;">
+                                    <i class="fa-solid fa-inbox" style="font-size: 24px; margin-bottom: 8px; display: block;"></i>
+                                    Belum ada data riwayat yang tersimpan. Silakan isi form input nilai terlebih dahulu.
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

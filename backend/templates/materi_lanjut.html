@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Matematika Lanjut SMK - EduAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { display: flex; background-color: #F8FAFC; min-height: 100vh; }
+        
+        /* SIDEBAR */
+        .sidebar { width: 260px; background-color: #EFF6FF; padding: 30px 20px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid #E2E8F0; position: fixed; height: 100vh; }
+        .sidebar-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
+        .sidebar-brand h2 { font-size: 22px; color: #1A56DB; font-weight: 700; }
+        .menu-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .menu-item a { display: flex; align-items: center; gap: 14px; padding: 12px 16px; color: #4B5563; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 500; }
+        .menu-item.active a { background-color: #1A56DB; color: white; }
+
+        /* MAIN CONTENT */
+        .main-content { margin-left: 260px; flex: 1; padding: 40px; }
+        .quiz-container { max-width: 800px; background: white; border-radius: 16px; padding: 30px; border: 1px solid #E5E7EB; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .quiz-header { border-bottom: 2px solid #F3F4F6; padding-bottom: 20px; margin-bottom: 30px; }
+        .quiz-header h1 { font-size: 24px; color: #111827; }
+        .quiz-header p { font-size: 14px; color: #D97706; margin-top: 4px; font-weight: 500; }
+        .question-box { margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid #F3F4F6; }
+        .question-text { font-size: 15px; font-weight: 600; color: #1F2937; margin-bottom: 14px; }
+        .options-group { display: flex; flex-direction: column; gap: 10px; }
+        .option-label { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1px solid #E5E7EB; border-radius: 10px; cursor: pointer; font-size: 14px; color: #4B5563; }
+        .option-label:hover { background-color: #F9FAFB; }
+        .option-label input[type="radio"] { width: 18px; height: 18px; accent-color: #1A56DB; }
+        .btn-submit-quiz { padding: 14px 28px; background-color: #1A56DB; color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; margin-top: 20px; }
+        .btn-submit-quiz:hover { background-color: #1e429f; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-graduation-cap" style="font-size: 28px; color: #1A56DB;"></i>
+                <h2>EduAI</h2>
+            </div>
+            <ul class="menu-list">
+                <li class="menu-item"><a href="{{ url_for('dashboard_siswa') }}"><i class="fa-solid fa-house"></i> Beranda</a></li>
+                <li class="menu-item"><a href="{{ url_for('input_nilai') }}"><i class="fa-solid fa-pen-to-square"></i> Input Nilai</a></li>
+                <li class="menu-item active"><a href="#"><i class="fa-solid fa-star"></i> Kuis Pengayaan</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h1>Tes Matematika SMK (Tahap 2: Pengayaan)</h1>
+                <p><i class="fa-solid fa-bolt"></i> Tingkat Kesulitan: Agak Sulit / Analitis (HOTS)</p>
+            </div>
+
+            <form action="{{ url_for('dashboard_siswa') }}" method="POST">
+                <input type="hidden" name="tipe_kuis" value="pengayaan">
+                <input type="hidden" name="nilai_siswa" id="nilai_hidden" value="0">
+
+                <div class="question-box">
+                    <p class="question-text">1. [Aljabar] Jika x + y = 7 dan x . y = 10, maka nilai dari x² + y² adalah...</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q1" value="A"> A. 29</label>
+                        <label class="option-label"><input type="radio" name="q1" value="B"> B. 39</label>
+                        <label class="option-label"><input type="radio" name="q1" value="C"> C. 49</label>
+                        <label class="option-label"><input type="radio" name="q1" value="D"> D. 59</label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text">2. [Perpangkatan] Sederhanakan bentuk berikut: (2⁴ . 9⁻²) / (8² . 3⁻⁵). Hasil akhirnya adalah...</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q2" value="A"> A. 3/4</label>
+                        <label class="option-label"><input type="radio" name="q2" value="B"> B. 4/3</label>
+                        <label class="option-label"><input type="radio" name="q2" value="C"> C. 3/2</label>
+                        <label class="option-label"><input type="radio" name="q2" value="D"> D. 2/3</label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text">3. [SPLDV] Sebuah bengkel merakit dua jenis mesin. Mesin A butuh 3 jam bubut dan 1 jam las. Mesin B butuh 2 jam bubut dan 2 jam las. Jika total waktu bubut 18 jam and waktu las 10 jam, berapa banyak Mesin A yang diproduksi?</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q3" value="A"> A. 2 unit</label>
+                        <label class="option-label"><input type="radio" name="q3" value="B"> B. 3 unit</label>
+                        <label class="option-label"><input type="radio" name="q3" value="C"> C. 4 unit</label>
+                        <label class="option-label"><input type="radio" name="q3" value="D"> D. 5 unit</label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text">4. [Fungsi] Diketahui f(x) = 2x + 3 dan g(x) = x² - 1. Fungsi komposisi (g ∘ f)(x) adalah...</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q4" value="A"> A. 4x² + 12x + 8</label>
+                        <label class="option-label"><input type="radio" name="q4" value="B"> B. 4x² + 6x + 8</label>
+                        <label class="option-label"><input type="radio" name="q4" value="C"> C. 2x² + 1</label>
+                        <label class="option-label"><input type="radio" name="q4" value="D"> D. 4x² + 12x + 9</label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text">5. [Trigonometri] Seseorang melihat puncak menara PLN dengan sudut elevasi 45°. Jika jarak orang tersebut ke kaki menara adalah 50 meter dan tinggi matanya 1,6 meter, maka tinggi menara tersebut adalah...</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q5" value="A"> A. 48,4 meter</label>
+                        <label class="option-label"><input type="radio" name="q5" value="B"> B. 50 meter</label>
+                        <label class="option-label"><input type="radio" name="q5" value="C"> C. 51,6 meter</label>
+                        <label class="option-label"><input type="radio" name="q5" value="D"> D. 52,5 meter</label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text">6. [Matriks] Diketahui matriks P = [[2, 3], [1, 4]] dan Q = [[1, 2], [3, 0]]. Matriks hasil perkalian P . Q adalah...</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q6" value="A"> A. [[11, 4], [13, 2]]</label>
+                        <label class="option-label"><input type="radio" name="q6" value="B"> B. [[11, 4], [2, 13]]</label>
+                        <label class="option-label"><input type="radio" name="q6" value="C"> C. [[5, 4], [13, 2]]</label>
+                        <label class="option-label"><input type="radio" name="q6" value="D"> D. [[11, 2], [13, 4]]</label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text">7. [Deret Geometri] Jumlah deret geometri tak hingga dari 18 + 6 + 2 + 2/3 + ... adalah...</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q7" value="A"> A. 24</label>
+                        <label class="option-label"><input type="radio" name="q7" value="B"> B. 26</label>
+                        <label class="option-label"><input type="radio" name="q7" value="C"> C. 27</label>
+                        <label class="option-label"><input type="radio" name="q7" value="D"> D. 30</label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text">8. [Statistika] Dalam sebuah kelas rata-rata nilai ujian siswa pria adalah 75, rata-rata siswa wanita adalah 85. Jika rata-rata gabungan kelas tersebut adalah 81, maka perbandingan jumlah siswa pria dan wanita adalah...</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q8" value="A"> A. 2 : 3</label>
+                        <label class="option-label"><input type="radio" name="q8" value="B"> B. 3 : 2</label>
+                        <label class="option-label"><input type="radio" name="q8" value="C"> C. 1 : 2</label>
+                        <label class="option-label"><input type="radio" name="q8" value="D"> D. 4 : 3</label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text">9. [Peluang] Dua buah dadu dilempar bersamaan sekali. Peluang munculnya mata dadu berjumlah 5 atau 10 adalah...</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q9" value="A"> A. 5/36</label>
+                        <label class="option-label"><input type="radio" name="q9" value="B"> B. 6/36</label>
+                        <label class="option-label"><input type="radio" name="q9" value="C"> C. 7/36</label>
+                        <label class="option-label"><input type="radio" name="q9" value="D"> D. 8/36</label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text">10. [Permutasi] Pengurus BEM IT-PLN yang terdiri dari Ketua, Sekretaris, dan Bendahara akan dipilih dari 5 orang kandidat terbaik. Banyak susunan pengurus yang mungkin terbentuk adalah...</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q10" value="A"> A. 20 cara</label>
+                        <label class="option-label"><input type="radio" name="q10" value="B"> B. 40 cara</label>
+                        <label class="option-label"><input type="radio" name="q10" value="C"> C. 60 cara</label>
+                        <label class="option-label"><input type="radio" name="q10" value="D"> D. 120 cara</label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text">11. [Program Linear] Fungsi objektif f(x,y) = 5x + 4y. Titik-titik pojok daerah penyelesaian adalah (0,0), (4,0), (2,3), dan (0,5). Nilai maksimum dari fungsi tersebut adalah...</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q11" value="A"> A. 20</label>
+                        <label class="option-label"><input type="radio" name="q11" value="B"> B. 22</label>
+                        <label class="option-label"><input type="radio" name="q11" value="C"> C. 24</label>
+                        <label class="option-label"><input type="radio" name="q11" value="D"> D. 25</label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text">12. [Limit] Nilai dari lim x→2 (x² - 4) / (x - 2) adalah...</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q12" value="A"> A. 0</label>
+                        <label class="option-label"><input type="radio" name="q12" value="B"> B. 2</label>
+                        <label class="option-label"><input type="radio" name="q12" value="C"> C. 4</label>
+                        <label class="option-label"><input type="radio" name="q12" value="D"> D. Tidak terdefinisi</label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text">13. [Turunan] Sebuah proyek konstruksi dapat diselesaikan dalam x hari dengan biaya proyek per hari sebesar (2x - 400 + 3000/x) ribu rupiah. Agar biaya proyek minimum, proyek tersebut harus diselesaikan dalam waktu...</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q13" value="A"> A. 50 hari</label>
+                        <label class="option-label"><input type="radio" name="q13" value="B"> B. 100 hari</label>
+                        <label class="option-label"><input type="radio" name="q13" value="C"> C. 150 hari</label>
+                        <label class="option-label"><input type="radio" name="q13" value="D"> D. 200 hari</label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text">14. [Matematika Keuangan] Modal sebesar Rp1.000.000 dibungakan dengan bunga majemuk 10% per tahun. Besar modal tersebut pada akhir tahun ke-2 adalah...</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q14" value="A"> A. Rp1.100.000</label>
+                        <label class="option-label"><input type="radio" name="q14" value="B"> B. Rp1.200.000</label>
+                        <label class="option-label"><input type="radio" name="q14" value="C"> C. Rp1.210.000</label>
+                        <label class="option-label"><input type="radio" name="q14" value="D"> D. Rp1.331.000</label>
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text">15. [Integral] Hasil integral tentu dari ∫₀³ 3x² dx adalah...</p>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q15" value="A"> A. 9</label>
+                        <label class="option-label"><input type="radio" name="q15" value="B"> B. 18</label>
+                        <label class="option-label"><input type="radio" name="q15" value="C"> C. 27</label>
+                        <label class="option-label"><input type="radio" name="q15" value="D"> D. 36</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit-quiz" style="background-color: #D97706;">
+                    <i class="fa-solid fa-graduation-cap"></i> Kirim Jawaban Pengayaan
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Kunci Jawaban Tahap 2 (Versi HOTS)
+        const kunciJawabanLanjut = {
+            q1: "A", q2: "A", q3: "C", q4: "A", q5: "C",
+            q6: "A", q7: "C", q8: "A", q9: "C", q10: "C",
+            q11: "B", q12: "C", q13: "B", q14: "C", q15: "C"
+        };
+
+        document.querySelector('form').addEventListener('submit', function(e) {
+            let benar = 0;
+            let totalSoal = 15;
+
+            for (let i = 1; i <= totalSoal; i++) {
+                const opsiTerpilih = document.querySelector(`input[name="q${i}"]:checked`);
+                if (opsiTerpilih && opsiTerpilih.value === kunciJawabanLanjut[`q${i}`]) {
+                    benar++;
+                }
+            }
+
+            let akurasiAkhir = Math.round((benar / totalSoal) * 100);
+            document.getElementById('nilai_hidden').value = akurasiAkhir;
+        });
+    </script>
+
+    <div class="menu-item">
+    <a href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </div>
+    
+</body>
+</html>

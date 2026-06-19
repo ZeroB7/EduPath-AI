@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EduAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            /* Latar belakang biru penuh dengan gradasi abstrak */
+            background: linear-gradient(135deg, #1A56DB 0%, #1e429f 100%);
+            padding: 20px;
+        }
+
+        /* BINGKAI KARTU UTAMA MELENGKUNG (Sesuai Referensi Gambar) */
+        .main-card {
+            display: flex;
+            background-color: #ffffff;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 950px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            padding: 40px;
+        }
+
+        /* SISI KIRI (ILUSTRASI PENDIDIKAN & INFOGRAFIS) */
+        .illustration-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-right: 40px;
+            border-right: 1px solid #F3F4F6;
+        }
+
+        .illustration-side img {
+            max-width: 85%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .illustration-side h3 {
+            color: #1A56DB;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .illustration-side p {
+            color: #6B7280;
+            font-size: 13px;
+            text-align: center;
+            line-height: 1.5;
+            max-width: 320px;
+        }
+
+        /* SISI KANAN (FORM INPUT LOGIN) */
+        .form-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: #1A56DB;
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+
+        .login-header h2 {
+            font-size: 32px;
+            color: #111827;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .login-header p {
+            color: #6B7280;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #D1D5DB;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #1A56DB;
+            box-shadow: 0 0 0 4px rgba(26, 86, 219, 0.1);
+        }
+
+        .btn-signin {
+            width: 100%;
+            padding: 14px;
+            background-color: #1A56DB;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-signin:hover {
+            background-color: #1e429f;
+        }
+
+        /* Responsif Layar Tablet/HP */
+        @media (max-width: 768px) {
+            .main-card {
+                flex-direction: column;
+                padding: 24px;
+            }
+            .illustration-side {
+                display: none;
+            }
+            .form-side {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-card">
+        
+        <div class="illustration-side">
+            <img src="https://illustrations.popsy.co/blue/studying.svg" alt="EduAI Pendidikan">
+            <h3>Analisis Remedial Pintar</h3>
+            <p>Sistem evaluasi akademik adaptif berbasis data modeling untuk mendeteksi performa belajar siswa.</p>
+        </div>
+
+        <div class="form-side">
+            <div class="logo">
+                <span>⚡</span> EduAI
+            </div>
+            
+            <div class="login-header">
+                <h2>Hello, <br>Welcome back</h2>
+                <p>Silakan masukkan nama dan password tugas kelompokmu.</p>
+            </div>
+
+            <form action="/" method="POST">
+                
+                <div class="form-group">
+                    <label for="nama_siswa">Nama Siswa</label>
+                    <input type="text" id="nama_siswa" name="nama_siswa" placeholder="Masukkan nama lengkapmu..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-signin">Login</button>
+            
+            </form>
+        </div>
+        
+    </div>
+
+    {% if error_alert %}
+    <script>
+        alert("Password Salah! Akses Ditolak. Gunakan password resmi tim.");
+    </script>
+    {% endif %}
+</body>
+</html>

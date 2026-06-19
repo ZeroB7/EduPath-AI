@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Aplikasi - EduPath AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { display: flex; background-color: #F8FAFC; min-height: 100vh; }
+
+        /* SIDEBAR */
+        .sidebar { width: 260px; background-color: #EFF6FF; padding: 30px 20px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid #E2E8F0; position: fixed; height: 100vh; }
+        .sidebar-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
+        .sidebar-brand .logo-icon { font-size: 28px; color: #1A56DB; }
+        .sidebar-brand h2 { font-size: 22px; color: #1A56DB; font-weight: 700; }
+        .sidebar-brand p { font-size: 11px; color: #6B7280; }
+        .menu-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .menu-item a { display: flex; align-items: center; gap: 14px; padding: 12px 16px; color: #4B5563; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.3s; }
+        .menu-item a:hover { background-color: #DBEAFE; color: #1A56DB; padding-left: 24px; }
+        .menu-item.active a { background-color: #1A56DB; color: white; }
+        .btn-logout { display: flex; align-items: center; gap: 14px; padding: 12px 16px; color: #4B5563; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 500; background-color: #E2E8F0; border: none; width: 100%; cursor: pointer; }
+
+        /* MAIN CONTENT */
+        .main-content { margin-left: 260px; flex: 1; padding: 40px; }
+        .header-area { margin-bottom: 30px; }
+        .welcome-text h1 { font-size: 26px; color: #111827; margin-bottom: 4px; }
+        .welcome-text p { color: #6B7280; font-size: 14px; }
+
+        /* CONTENT CARD */
+        .card { background: white; border-radius: 16px; padding: 30px; border: 1px solid #E5E7EB; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 24px; }
+        .card-title { font-size: 18px; color: #1A56DB; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #EFF6FF; padding-bottom: 10px; }
+        .card p { font-size: 14px; color: #4B5563; line-height: 1.6; margin-bottom: 14px; }
+        
+        /* WORKFLOW LIST */
+        .wf-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 10px; }
+        .wf-item { display: flex; gap: 14px; background: #F8FAFC; padding: 16px; border-radius: 10px; border-left: 4px solid #1A56DB; }
+        .wf-icon { font-size: 20px; color: #1A56DB; margin-top: 2px; }
+        .wf-text h4 { font-size: 15px; color: #111827; font-weight: 600; margin-bottom: 4px; }
+        .wf-text p { font-size: 13px; color: #6B7280; margin: 0; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                <div>
+                    <h2>EduAI</h2>
+                    <p>Asisten Belajar Pintar</p>
+                </div>
+            </div>
+            <ul class="menu-list">
+                <li class="menu-item"><a href="{{ url_for('dashboard_siswa') }}"><i class="fa-solid fa-house"></i> Beranda</a></li>
+                <li class="menu-item"><a href="{{ url_for('input_nilai') }}"><i class="fa-solid fa-pen-to-square"></i> Input Nilai</a></li>
+                <li class="menu-item"><a href="{{ url_for('halaman_riwayat') }}"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Saya</a></li>
+                <li class="menu-item"><a href="{{ url_for('halaman_tips') }}"><i class="fa-solid fa-lightbulb"></i> Tips Belajar</a></li>
+                <li class="menu-item active"><a href="#"><i class="fa-solid fa-circle-info"></i> Tentang</a></li>
+            </ul>
+        </div>
+        
+        <div>
+            <a href="{{ url_for('logout') }}" style="text-decoration: none;">
+                <button class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header-area">
+            <div class="welcome-text">
+                <h1>Tentang Sistem ℹ️</h1>
+                <p>Mengenal lebih dekat teknologi kecerdasan buatan di balik platform EduPath AI.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-circle-nodes"></i> Apa itu EduPath AI?</div>
+            <p><strong>EduPath AI</strong> adalah platform pembelajaran adaptif berbasis kecerdasan buatan yang dirancang khusus untuk mengoptimalkan kompetensi siswa SMK. Sistem ini menganalisis metrik akurasi kuis siswa secara <em>real-time</em> guna memetakan tingkat pemahaman mereka secara objektif.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><i class="fa-solid fa-gears"></i> Alur Kerja Model AI (Adaptive Workflow)</div>
+            <p>Aplikasi ini mengimplementasikan logika sistem cerdas terintegrasi untuk memberikan pengalaman belajar yang personal:</p>
+            
+            <ul class="wf-list">
+                <li class="wf-item">
+                    <i class="fa-solid fa-chart-bar wf-icon"></i>
+                    <div class="wf-text">
+                        <h4>1. Pengumpulan Metrik Belajar</h4>
+                        <p>Sistem merekam data hasil skor akurasi kuis mandiri serta input nilai tugas harian siswa secara berkala ke dalam database MySQL.</p>
+                    </div>
+                </li>
+                <li class="wf-item">
+                    <i class="fa-solid fa-brain wf-icon"></i>
+                    <div class="wf-text">
+                        <h4>2. Klasifikasi Tingkat Pemahaman</h4>
+                        <p>Algoritma sistem memproses data nilai menjadi tiga kategori performa adaptif: <strong>Rendah</strong> (skor &lt; 40), <strong>Sedang</strong> (skor 40-84), dan <strong>Tinggi</strong> (skor &ge; 85).</p>
+                    </div>
+                </li>
+                <li class="wf-item">
+                    <i class="fa-solid fa-clapperboard wf-icon"></i>
+                    <div class="wf-text">
+                        <h4>3. Intervensi Rekomendasi Jarak Jauh (Multimedia)</h4>
+                        <p>Siswa dengan status Rendah atau Sedang secara otomatis diberikan rekomendasi bahan belajar multimedia berupa tautan video pembahasan YouTube serta berkas ringkasan materi PDF lokal untuk menutup celah pemahaman mereka.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
